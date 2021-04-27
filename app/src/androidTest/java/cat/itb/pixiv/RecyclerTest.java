@@ -18,6 +18,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import cat.itb.pixiv.Fragments.LoginFragments.FragmentLoginTest;
+
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -39,58 +41,21 @@ public class RecyclerTest {
 
     @Test
     public void recyclerTest() {
-        ViewInteraction materialButton = onView(
-                allOf(withId(R.id.loginButton), withText("Login"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.fragment_container),
-                                        0),
-                                1),
-                        isDisplayed()));
-        materialButton.perform(click());
-
-        ViewInteraction textInputEditText = onView(
-                allOf(withId(R.id.input_text_login_username),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.input_layout_login_username),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText.perform(replaceText("test"), closeSoftKeyboard());
-
-        ViewInteraction textInputEditText2 = onView(
-                allOf(withId(R.id.input_text_login_password),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.input_layout_login_password),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText2.perform(replaceText("123456789"), closeSoftKeyboard());
-
-        ViewInteraction materialButton2 = onView(
-                allOf(withId(R.id.loginButton), withText("Login"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.fragment_container),
-                                        0),
-                                3),
-                        isDisplayed()));
-        materialButton2.perform(click());
-
-//        ViewInteraction appCompatImageView = onView(
-//                allOf(withId(R.id.image_view_illustrations_recommended),
-//                        childAtPosition(
-//                                childAtPosition(
-//                                        withId(R.id.recycler_view_illustrations_recommended),
-//                                        1),
-//                                0),
-//                        isDisplayed()));
-//        appCompatImageView.perform(click());
+        FragmentLoginTest login=new FragmentLoginTest();
+        login.login();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         onView(withId(R.id.recycler_view_illustrations_recommended)).perform(RecyclerViewActions.actionOnItemAtPosition(1,click()));
 
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         onView(withId(R.id.illustration_text_view_oc_tittle))
                 .check(matches(isDisplayed()));
         onView(withId(R.id.illustration_text_view_oc_username))
@@ -102,9 +67,7 @@ public class RecyclerTest {
         onView(withId(R.id.floatingActionButton_illustration))
                 .check(matches(isDisplayed()))
                 .check(matches(isClickable()));
-        onView(withId(R.id.followButtonIllustration))
-                .check(matches(isDisplayed()))
-                .check(matches(isClickable()));
+
     }
 
     private static Matcher<View> childAtPosition(

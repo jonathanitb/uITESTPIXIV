@@ -9,6 +9,7 @@ import cat.itb.pixiv.MainActivity;
 import cat.itb.pixiv.R;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static org.junit.Assert.*;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.*;
@@ -27,16 +28,10 @@ public class FragmentLoginTest {
         onView(withId(R.id.loginButton))
                 .perform(click());
         onView(withId(R.id.input_text_login_username))
-                .perform(typeText("test"))
-                .check(matches(withText("test")))
-                .perform(closeSoftKeyboard());
-        onView(withId(R.id.input_layout_login_password))
-                .perform(click());
-        onView(withText(R.id.input_text_login_password))
-                .perform(typeText("123456789"))
-                .check(matches(withText("123456789")))
-                .perform(closeSoftKeyboard());;
-        onView(withText(R.id.loginButton))
+                .perform(replaceText("jony"), closeSoftKeyboard());
+        onView(withId(R.id.input_text_login_password))
+                .perform(replaceText("123456789"), closeSoftKeyboard());
+        onView(withId(R.id.loginButton))
                 .check(matches(isClickable()))
                 .perform(click());
 
@@ -50,15 +45,15 @@ public class FragmentLoginTest {
                 .perform(typeText("test2"))
                 .check(matches(withText("test2")))
                 .perform(closeSoftKeyboard());
-        onView(withText(R.id.input_text_password))
+        onView(withId(R.id.input_text_password))
                 .perform(typeText("123456789"))
                 .check(matches(withText("123456789")))
                 .perform(closeSoftKeyboard());
-        onView(withText(R.id.input_text_password_repeat))
+        onView(withId(R.id.input_text_password_repeat))
                 .perform(typeText("123456789"))
                 .check(matches(withText("123456789")))
                 .perform(closeSoftKeyboard());
-        onView(withText(R.id.registerButton))
+        onView(withId(R.id.registerButton))
                 .check(matches(isClickable()))
                 .perform(click());
     }
